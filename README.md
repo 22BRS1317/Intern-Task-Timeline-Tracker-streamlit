@@ -1,47 +1,66 @@
 # Intern Task Timeline Tracker
 
-A Streamlit-based web application for tracking intern progress, deadlines, and deliverables.
+A web application built with Streamlit to help track and manage intern tasks, deadlines, and progress.
 
 ## Features
 
-- 📅 Interactive Timeline View
-- ✅ Weekly Task Check-Off System
-- 🚦 Traffic Light Status Indicators
-- 📧 Automated Email Reminders
-- 🗓 Calendar Integration
-- 🔐 Secure Authentication
-- 📊 Admin Dashboard
-- 🎨 Beautiful & Responsive UI
+- User authentication (Admin and Regular users)
+- Task creation and assignment
+- Task status tracking
+- Timeline visualization
+- Analytics dashboard
+- Email notifications
+- Comments system
 
-## Installation
+## Setup
 
-1. Clone the repository
+1. Clone the repository:
+```bash
+git clone https://github.com/22BRS1317/Intern-Task-Timeline-Tracker.git
+cd Intern-Task-Timeline-Tracker
+```
+
 2. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Run the application:
+3. Set up environment variables:
+Create a `.env` file in the root directory with the following variables:
+```
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASSWORD=your_app_password
+```
+
+4. Run the application:
 ```bash
 streamlit run app.py
 ```
 
 ## Usage
 
-1. Log in with your credentials
-2. View your timeline and tasks
-3. Mark tasks as complete
-4. Receive automated reminders
-5. Track progress through the dashboard
+1. Register a new account (first user will be admin)
+2. Log in with your credentials
+3. Create and manage tasks
+4. Track progress through the timeline and analytics
 
-## Admin Features
+## Technologies Used
 
-- View all intern progress
-- Filter by intern, milestone, or status
-- Add/edit tasks and deadlines
-- Send manual reminders
-- Generate progress reports
+- Python
+- Streamlit
+- SQLAlchemy
+- Plotly
+- SQLite
+- SMTP for email notifications
 
 ## Contributing
 
-Feel free to submit issues and enhancement requests! 
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details. 

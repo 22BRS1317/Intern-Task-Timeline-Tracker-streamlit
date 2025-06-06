@@ -3,10 +3,6 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 import enum
 from datetime import datetime
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 Base = declarative_base()
 
@@ -52,14 +48,7 @@ class Comment(Base):
 
 # Database initialization
 def init_db():
-    # Use environment variable for database URL, fallback to SQLite
-    database_url = os.getenv('DATABASE_URL', 'sqlite:///intern_tracker.db')
-    
-    # If using PostgreSQL on Heroku, convert the URL
-    if database_url.startswith('postgres://'):
-        database_url = database_url.replace('postgres://', 'postgresql://', 1)
-    
-    engine = create_engine(database_url)
+    engine = create_engine('sqlite:///intern_tracker.db')
     Base.metadata.create_all(engine)
     return sessionmaker(bind=engine)()
 

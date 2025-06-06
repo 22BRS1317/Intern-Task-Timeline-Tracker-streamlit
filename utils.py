@@ -17,8 +17,8 @@ def send_email_notification(to_email, subject, body):
         print("Checking if .env file exists:", os.path.exists('.env'))
         
         # Email configuration
-        sender_email = os.getenv('EMAIL_USER')
-        sender_password = os.getenv('EMAIL_PASSWORD')
+        sender_email = os.getenv('EMAIL_USER', 'summerofai05@gmail.com')
+        sender_password = os.getenv('EMAIL_PASSWORD', 'your_app_password_here')  # Replace with your actual app password
         
         print("\nEmail Configuration:")
         print(f"Sender Email: {sender_email}")
@@ -46,20 +46,20 @@ def send_email_notification(to_email, subject, body):
         server.starttls()
         
         print("Attempting to login...")
-        server.login(sender_email, sender_password)
-        
-        print("Sending email...")
-        server.send_message(msg)
-        server.quit()
-        print("Email sent successfully!")
-        return True
+        try:
+            server.login(sender_email, sender_password)
+            server.send_message(msg)
+            server.quit()
+            print("Email sent successfully!")
+            return True
+        except smtplib.SMTPAuthenticationError:
+            print("\nError: SMTP Authentication failed. Please check your email and app password.")
+            return False
+        except Exception as e:
+            print(f"\nError sending email: {str(e)}")
+            return False
     except Exception as e:
-        print("\nError sending email:")
-        print(f"Error type: {type(e).__name__}")
-        print(f"Error message: {str(e)}")
-        import traceback
-        print("Full traceback:")
-        traceback.print_exc()
+        print(f"\nError in email configuration: {str(e)}")
         return False
 
 # Test email function
@@ -143,7 +143,7 @@ def send_task_completion_notification(task, user):
 def check_overdue_tasks(tasks):
     """Check for overdue tasks and send notifications."""
     now = datetime.utcnow()
-    overdue_tasks = [task for task in tasks if task.deadline < now and task.status != 'completed']
+    overdue_tasks = [task for task in tasks if task.deadline < now and task.status != TaskStatus.COMPLETED]
     
     for task in overdue_tasks:
         subject = f"Task Overdue: {task.title}"
@@ -154,7 +154,7 @@ def check_overdue_tasks(tasks):
         
         Task Details:
         - Description: {task.description}
-        - Deadline: {task.deadline.strftime('%Y-%m-%d')}
+        - Deadline: {task.deadline.strftime('%Y-%m-%d %H:%M')}
         - Current Status: {task.status.value}
         
         Best regards,
@@ -172,7 +172,7 @@ def calculate_completion_rate(tasks):
     """Calculate task completion rate."""
     if not tasks:
         return 0
-    completed = len([t for t in tasks if t.status == 'completed'])
+    completed = len([t for t in tasks if t.status == TaskStatus.COMPLETED])
     return (completed / len(tasks)) * 100
 
 def format_timedelta(delta):
@@ -200,4 +200,4 @@ def get_task_status_color(status):
 
 # Add this at the end of the file
 if __name__ == "__main__":
-    test_email_configuration() 
+    test_email_configuration()
