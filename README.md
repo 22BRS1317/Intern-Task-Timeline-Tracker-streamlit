@@ -16,7 +16,7 @@ A web application built with Streamlit to help track and manage intern tasks, de
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/22BRS1317/Intern-Task-Timeline-Tracker.git
+git clone https://github.com/22BRS1317/Intern-Task-Timeline-Tracker-streamlit.git
 cd Intern-Task-Timeline-Tracker
 ```
 
